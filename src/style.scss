@@ -1,0 +1,450 @@
+@use "variables" as *;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: white;
+  font-family: monospace, sans-serif;
+}
+
+#app {
+  border-radius: 25px;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  background-color: $green;
+  box-sizing: border-box;
+  padding: 40px;
+  width: 100%;
+
+  h1 {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    font-size: 30px;
+  }
+}
+
+#searchSection {
+  background-color: $white;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+
+  #goToWatchlist {
+    background-color: $orange;
+    border: none;
+    color: $white;
+    font-weight: bold;
+    width: 110px;
+    height: 40px;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease 0s;
+
+    &:hover {
+      background-color: $yellow;
+    }
+  }
+
+  #searchForm {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    #searchText {
+      background-color: transparent;
+      border: 1px solid $black;
+      width: 100%;
+      height: 40px;
+      padding: 10px;
+      color: $black;
+      font-family: monospace;
+      font-size: 12px;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: $black;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    #searchButton {
+      background-color: $orange;
+      border: none;
+      color: $white;
+      font-weight: bold;
+      width: 80px;
+      height: 40px;
+      box-sizing: border-box;
+      padding: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: monospace;
+      transition: background-color 0.3s ease 0s;
+
+      &:hover {
+        background-color: $yellow;
+      }
+    }
+  }
+}
+
+#modal {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  width: 80%;
+  max-width: 550px;
+
+  &::backdrop {
+    background-color: $black;
+    opacity: 0.5;
+  }
+
+  .modalImg {
+    width: 230px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    .modalPoster {
+      width: 100%;
+    }
+  }
+
+  .modalInfo {
+    width: 230px;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+
+    h2 {
+      font-size: 14px;
+      margin: 0;
+      text-transform: uppercase;
+      color: $black;
+    }
+
+    p {
+      font-size: 12px;
+      margin: 0;
+      color: $black;
+    }
+
+    .closeButton {
+      background-color: $orange;
+      border: none;
+      color: $white;
+      font-weight: bold;
+      width: 100%;
+      height: 30px;
+      padding: 5px;
+      box-sizing: border-box;
+      cursor: pointer;
+      font-family: monospace;
+      transition: background-color 0.3s ease 0s;
+
+      &:hover {
+        background-color: $yellow;
+      }
+    }
+  }
+}
+
+#modal:not([open]) {
+  display: none;
+}
+
+#resultsHeadline {
+  background-color: $black;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0px 0px 0px;
+  color: $white;
+  box-sizing: border-box;
+
+  .resultsTitle {
+    font-size: 20px;
+    margin: 0;
+  }
+}
+
+#movies {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: $black;
+  box-sizing: border-box;
+  padding: 30px 20px;
+  width: 100%;
+  min-height: 400px;
+
+  h3 {
+    font-size: 16px;
+    color: $white;
+  }
+
+  .movieContainer {
+    background-color: $white;
+    width: 250px;
+    height: 450px;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.67);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .imgContainer {
+      width: 100%;
+      height: 80%;
+      overflow: hidden;
+      background-color: black;
+
+      .poster {
+        width: 100%;
+      }
+    }
+
+    .infoContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      width: 100%;
+      height: 20%;
+      box-sizing: border-box;
+
+      .movieTitle {
+        font-size: 14px;
+        margin: 0;
+        text-transform: uppercase;
+        width: 100%;
+      }
+
+      .btnContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px;
+        align-items: center;
+
+        .infoButton {
+          background-color: $orange;
+          border: none;
+          color: $white;
+          font-weight: bold;
+          width: 100%;
+          height: 30px;
+          padding: 5px;
+          box-sizing: border-box;
+          cursor: pointer;
+          font-family: monospace;
+          transition: background-color 0.3s ease 0s;
+
+          &:hover {
+            background-color: $yellow;
+          }
+        }
+
+        .addButton {
+          background-color: $orange;
+          border: none;
+          color: $white;
+          font-weight: bold;
+          width: 30px;
+          height: 30px;
+          padding: 5px;
+          box-sizing: border-box;
+          cursor: pointer;
+          font-family: monospace;
+          transition: background-color 0.3s ease 0s;
+
+          &:hover {
+            background-color: $yellow;
+          }
+        }
+      }
+    }
+  }
+}
+
+#watchlistHeader {
+  background-color: $orange;
+  box-sizing: border-box;
+  padding: 30px;
+  width: 100%;
+
+  h4 {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    font-size: 26px;
+  }
+}
+
+#watchlistSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  box-sizing: border-box;
+  padding: 40px 20px;
+  width: 100%;
+  min-height: 400px;
+
+  .noWatchlist {
+    font-size: 16px;
+    color: $black;
+  }
+
+  .movieContainer {
+    background-color: $white;
+    width: 250px;
+    height: 450px;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.67);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .imgContainer {
+      width: 100%;
+      height: 80%;
+      overflow: hidden;
+      background-color: black;
+
+      .poster {
+        width: 100%;
+      }
+    }
+
+    .infoContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      width: 100%;
+      height: 20%;
+      box-sizing: border-box;
+
+      .movieTitle {
+        font-size: 14px;
+        margin: 0;
+        text-transform: uppercase;
+        width: 100%;
+      }
+
+      .btnContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px;
+        align-items: center;
+
+        .infoButton {
+          background-color: $orange;
+          border: none;
+          color: $white;
+          font-weight: bold;
+          width: 100%;
+          height: 30px;
+          padding: 5px;
+          box-sizing: border-box;
+          cursor: pointer;
+          font-family: monospace;
+          transition: background-color 0.3s ease 0s;
+
+          &:hover {
+            background-color: $yellow;
+          }
+        }
+
+        .removeButton {
+          background-color: $orange;
+          border: none;
+          color: $white;
+          font-weight: bold;
+          width: 30px;
+          height: 30px;
+          padding: 5px;
+          box-sizing: border-box;
+          cursor: pointer;
+          font-family: monospace;
+          transition: background-color 0.3s ease 0s;
+
+          &:hover {
+            background-color: $yellow;
+          }
+        }
+      }
+    }
+  }
+}
+
+footer {
+  background-color: $yellow;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $black;
+  text-align: center;
+}
