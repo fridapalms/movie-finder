@@ -1,13 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>movie-app</title>
+    <title>Movie Finder</title>
+    <link rel="stylesheet" href="src/style.scss" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <header>
+        <h1>Movie Finder</h1>
+      </header>
+      <section id="searchSection">
+        <a id="goToWatchlist" href="#watchlistHeader">Watchlist</a>
+        <form id="searchForm">
+          <input type="text" id="searchText" autocomplete="off" placeholder="Type here.." />
+          <button id="searchButton">Search</button>
+        </form>
+      </section>
+      <dialog class="modal" id="modal"></dialog>
+      <section id="resultsHeadline"></section>
+      <section id="movies">
+        <h3>Start by searching for a movie..</h3>
+      </section>
+      <section id="watchlistHeader">
+        <h4>My watchlist</h4>
+      </section>
+      <section id="watchlistSection">
+        <h3></h3>
+      </section>
+      <footer>
+        <h4>A front end school project developed by Frida Palm</h4>
+      </footer>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

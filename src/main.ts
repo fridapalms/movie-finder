@@ -2,7 +2,6 @@ import "./style.scss";
 import { createHtml, createWatchlist } from "./htmlUtils";
 import type { Movie } from "./models/Movie";
 import { getMovies } from "./services/movieService";
-import "./style.scss";
 
 //SEARCH FUNCTION:
 document.getElementById("searchForm")?.addEventListener("submit", async (e) => {
